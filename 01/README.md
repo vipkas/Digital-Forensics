@@ -1,136 +1,130 @@
-# Network Traffic Forensics
+# Lab 1 — Network Traffic Forensics
 
-In today's world, networks are a fundamental part of our daily lives that enable us to communicate, access information, and carry out various online activities. However, networks are also a prime target for bad actors who seek to cause harm by exploiting vulnerabilities.
+## Network Traffic Forensics
 
-In this lab, we will start with a refresher on the basics of networks, including IP addresses, protocols, and ports. We will explore how these elements work together to facilitate communication between devices.
+Di dunia saat ini, jaringan adalah bagian penting dari kehidupan sehari-hari yang memungkinkan kita untuk berkomunikasi, mengakses informasi, dan melakukan berbagai aktivitas online. Namun, jaringan juga menjadi target utama bagi aktor jahat yang mencoba memanfaatkan kerentanan untuk menyebabkan kerugian.
 
-Next, we will move on to the forensic analysis of network traffic. We will analyze captured traffic for suspicious or malicious activity, which will involve looking for anomalies in traffic patterns, identifying unauthorized access attempts, and tracing the source of any attacks.
+Dalam lab ini, kita akan memulai dengan penyegaran dasar jaringan, termasuk alamat IP, protokol, dan port. Kita akan mengeksplorasi bagaimana elemen-elemen ini bekerja sama untuk memfasilitasi komunikasi antar perangkat.
 
-# Basic Networking Refresher
+Selanjutnya, kita akan melakukan analisis forensik lalu lintas jaringan. Kita akan menganalisis lalu lintas yang tertangkap untuk menemukan aktivitas yang mencurigakan atau berbahaya, yang mencakup mencari anomali dalam pola lalu lintas, mengidentifikasi upaya akses tidak sah, dan melacak sumber serangan apa pun.
 
-To put it simply, a network is a group of devices that are connected to each other to communicate, share information, files, and resources. These devices need to have an IP address, a protocol, and a port to communicate with each other, and understanding these is crucial for any digital forensics analyst as these fundamentals are the building blocks of investigating any malicious activity on a network.
+## Basic Networking Refresher
 
-## IP Addresses
+Secara sederhana, jaringan adalah sekumpulan perangkat yang terhubung untuk berkomunikasi, berbagi informasi, file, dan sumber daya. Perangkat ini membutuhkan alamat IP, protokol, dan port untuk dapat saling berkomunikasi. Memahami elemen-elemen ini sangat penting bagi setiap analis forensik digital karena ini adalah dasar dari investigasi aktivitas berbahaya di jaringan.
 
-An IP address is a unique identifier assigned to each device on a network. It is used to identify the device's location and facilitate communication with other devices. An example of an IP address is “192.168.1.1”.
+### IP Addresses
 
-## Protocols
+Alamat IP adalah pengenal unik yang diberikan ke setiap perangkat di jaringan. Alamat ini digunakan untuk mengidentifikasi lokasi perangkat dan memfasilitasi komunikasi dengan perangkat lain. Contoh alamat IP adalah “192.168.1.1”.
 
-A protocol is a set of rules that govern the communication between devices on a network. Some common protocols include HTTP, SSH, and FTP.
+### Protocols
 
-For example, when you browse a website, your computer sends an HTTP request to the web server, which responds with an HTTP response that contains the webpage you requested.
+Protokol adalah serangkaian aturan yang mengatur komunikasi antar perangkat di jaringan. Beberapa protokol umum termasuk HTTP, SSH, dan FTP. Misalnya, ketika Anda mengunjungi sebuah situs web, komputer Anda mengirim permintaan HTTP ke server web, yang kemudian merespons dengan mengirim halaman yang diminta.
 
-## Ports
+### Ports
 
-A port is a number used to identify a specific application or service on a device. When a device receives network traffic, it uses the port number to determine which application or service the traffic is intended for.
+Port adalah nomor yang digunakan untuk mengidentifikasi aplikasi atau layanan tertentu pada perangkat. Saat perangkat menerima lalu lintas jaringan, perangkat tersebut menggunakan nomor port untuk menentukan aplikasi atau layanan yang dimaksud. Misalnya, ketika Anda mengakses situs web menggunakan HTTP, permintaan dikirim ke port 80 pada server web.
 
-For example, when you access a website using HTTP, your browser sends the request to port 80 on the web server.
+Tabel berikut menunjukkan pemetaan antara beberapa protokol umum dan nomor port mereka.
 
-The following table presents a mapping between some commonly used protocols and their port numbers:
+| Protocol                                    | Port  |
+| ------------------------------------------- | ----- |
+| FTP (File Transfer Protocol)                | 21    |
+| SSH (Secure Shell)                          | 22    |
+| Telnet (Teletype Network)                   | 23    |
+| SMTP (Simple Mail Transfer Protocol)        | 25    |
+| DNS (Domain Name System)                    | 53    |
+| DHCP (Dynamic Host Configuration Protocol)  | 67/68 |
+| HTTP (Hyper Text Transfer Protocol)         | 80    |
+| HTTPS (Hyper Text Transfer Protocol Secure) | 443   |
+| SMB (Server Message Block)                  | 445   |
+| RDP (Remote Desktop Protocol)               | 3389  |
+| ICMP (Internet Control Message Protocol)    | N/A   |
 
-| Protocol | Port |
-| --- | --- |
-| FTP (File Transfer Protocol) | 21 |
-| SSH (Secure Shell) | 22 |
-| Telnet (Teletype Network) | 23 |
-| SMTP (Simple Mail Transfer Protocol) | 25 |
-| DNS (Domain Name System) | 53 |
-| DHCP (Dynamic Host Configuration Protocol) | 67/68 |
-| HTTP (Hyper Text Transfer Protocol) | 80 |
-| HTTPS (Hyper Text Transfer Protocol Secure) | 443 |
-| SMB (Server Message Block) | 445 |
-| RDP (Remote Desktop Protocol) | 3389 |
-| ICMP (Internet Control Message Protocol) | N/A |
+## Network Traffic Forensics
 
-# Network Traffic Forensics
+Di bagian ini, kita akan mengeksplorasi  tools dan techniques yang digunakan untuk menangkap dan menganalisis lalu lintas jaringan, mengekstrak informasi penting, mendeteksi perilaku mencurigakan, dan menyelidiki serangan di jaringan.
 
-In this section, let's explore the tools and techniques used to capture and analyze network traffic, extract valuable information, detect suspicious behavior, and investigate attacks on the network.
+### Capturing Network Traffic
 
-## Capturing Network Traffic
+Prasyarat untuk melakukan forensik lalu lintas jaringan adalah menangkap lalu lintas jaringan. Ini dapat dilakukan menggunakan alat penangkap paket atau alat _sniffing_, seperti Wireshark atau tcpdump. Untuk lab ini, kita akan menggunakan Wireshark, jadi pastikan Anda telah menginstalnya.
 
-The pre requisite to perform network traffic forensics is to capture the network traffic. This can be achieved using a network packet capture or sniffing tool, such as Wireshark or tcpdump. For this lab, we'll mainly be using Wireshark, so make sure you have it installed on your machine. 
+Langkah-langkah untuk menangkap lalu lintas jaringan:
 
-To capture live network traffic, follow the steps below:
+1. Buka Wireshark melalui terminal di Linux atau melalui menu Start di Windows.
+2. Pilih antarmuka jaringan yang ingin Anda pantau, biasanya eth0.
+3. Klik ikon sirip hiu berwarna biru di kiri atas untuk memulai penangkapan lalu lintas.
+4. Anda seharusnya sudah melihat paket mulai muncul. Jika tidak, cobalah mengunjungi situs seperti [https://www.google.com/](https://www.google.com/).
+5. Untuk menghentikan penangkapan, klik tombol stop berwarna merah di kiri atas.
+6. Untuk menyimpan lalu lintas yang tertangkap, pilih **File → Save as**, lalu tentukan nama dan lokasi penyimpanan.
 
-1. Open Wireshark by entering `wireshark` in the terminal on Linux or through the Start menu on Windows.
-2. Once it is open, select a network interface that you want to capture traffic on. In most cases, it is `eth0`.
-3. Click the blue colored shark's fin icon on top left of the window to start capturing traffic.
-4. In most cases you should already see packets begin to appear on Wireshark. If not, you can try generating some traffic by visiting a website in your browser, like [https://www.google.com/](https://www.google.com/).
-5. To stop capturing traffic, click the stop button in red on top left.
-6. To save the capture traffic, go to File → Save as, and select a name and location to save the capture file.
+Catatan: Secara default, ekstensi file harus .pcapng, tetapi ekstensi umum lain untuk file penangkapan adalah .pcap.
 
-> Note: By default, the file extension should be `.pcapng`. Another commonly used extension for capture files is `.pcap`.
+### Analyzing Network Traffic
 
-## Analyzing Network Traffic
+Langkah selanjutnya dalam forensik lalu lintas jaringan adalah menganalisis lalu lintas yang tertangkap. Ini mencakup pemeriksaan lalu lintas jaringan untuk mengidentifikasi aktivitas mencurigakan, upaya akses tidak sah, dan mengekstrak informasi seperti:
 
-The next step in network traffic forensics is to analyze the captured network traffic. This involves examining the network traffic to identify suspicious activity, attempts for unauthorized access, and extracting information such as:
+* Alamat IP sumber dan tujuan serta port
+* Protokol yang digunakan
+* Data/payload yang dikirim
+* Tanggal dan waktu aktivitas
 
-- source and destination IP addresses and ports
-- protocols
-- data/payload transmitted
-- date and time of the activity
+Ada banyak fitur yang tersedia di Wireshark untuk forensik jaringan, termasuk melihat hierarki protokol, menerapkan filter, melihat detail paket dan byte paket, mengikuti aliran TCP, dan mengekspor objek.
 
-While there are many features available in Wireshark for network forensics, some of the most commonly used ones include viewing protocol hierarchy, applying filters, viewing packet details and packet bytes, following TCP streams, and exporting objects.
+Untuk mulai menganalisis lalu lintas jaringan yang tertangkap, unduh file dari URL [capture.pcapng](01/files/capture.pcapng) dan buka di Wireshark.
 
-To begin analyzing sample captured network traffic, download the file from the URL [https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab 05/files/capture.pcapng](https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab%2005/files/capture.pcapng) and open it in Wireshark. 
+#### Protocol Hierarchy
 
-### Protocol Hierarchy
+Untuk mendapatkan gambaran umum tentang lalu lintas jaringan yang tertangkap, buka **Statistics → Protocol Hierarchy** untuk melihat protokol yang digunakan dan jumlah relatif paket untuk setiap protokol. Ini membantu mempersempit analisis kita dan memfilter lalu lintas yang mencurigakan.
 
-To get a general overview of the captured network traffic, we can go to Statistics → Protocol Hierarchy to see which protocols are being used in the capture, and the relative amount of packets for each protocol. This helps us narrow down our analysis and filter for suspicious traffic.
+![protocol\_hierarchy](.gitbook/assets/protocol\_hierarchy.png)
 
-![protocol_hierarchy](files/images/protocol_hierarchy.png)
+#### Filters
 
-### Filters
+Filter dapat diterapkan untuk memfokuskan analisis pada lalu lintas yang kita butuhkan. Hal ini mempermudah analisis hanya pada paket yang relevan.
 
-We can also apply filters to focus on traffic of our interest. This makes it easier to analyze and view only the relevant packets that we need. 
+![filter\_http](.gitbook/assets/filter\_http.png)
 
-The following image demonstrates how to filter for HTTP packets:
+Demikian pula, kita dapat memfilter paket FTP:
 
-![filter_http](files/images/filter_http.png)
+![filter\_ftp](.gitbook/assets/filter\_ftp.png)
 
-Similarly, we can filter for FTP packets:
+Untuk melihat filter lainnya yang didukung Wireshark, kunjungi [Display Filters Wireshark](https://wiki.wireshark.org/DisplayFilters).
 
-![filter_ftp](files/images/filter_ftp.png)
+#### Packet Details dan Packet Bytes
 
-To see what other filters Wireshark supports, refer to [https://wiki.wireshark.org/DisplayFilters](https://wiki.wireshark.org/DisplayFilters).
+Panel detail paket menunjukkan paket yang dipilih secara rinci, sedangkan panel byte paket menunjukkan data dari paket yang dipilih dalam format hexdump. Kedua panel ini berada di bagian bawah jendela Wireshark
 
-### Packet Details and Packet Bytes
+![details\_and\_bytes](.gitbook/assets/details\_and\_bytes.png)
 
-The packet details pane shows the selected packet in a more detailed form, whereas the packet bytes pane shows the data of the selected packet in a hexdump format. These panes are located at the bottom of the Wireshark window.
+**Mengikuti Aliran TCP**
 
-![details_and_bytes](files/images/details_and_bytes.png)
+Fitur **Follow TCP Stream** di Wireshark menampilkan seluruh percakapan untuk koneksi TCP tertentu, sehingga memudahkan melihat detail penuh dari koneksi dan data yang dikirim selama koneksi tersebut.
 
-### Follow TCP Stream
+![tcp\_stream](.gitbook/assets/tcp\_stream.png)
 
-The Follow TCP Stream feature in Wireshark displays the entire conversation for a particular TCP connection. This makes it easier to see the full details of the connection and any data transmitted during that connection. To use this feature, we can right click on any packet, then select Follow → TCP Stream.
+#### Export Objects
 
-![tcp_stream](files/images/tcp_stream.png)
+Fitur **Export Objects** memungkinkan kita untuk mengekstrak file dari lalu lintas jaringan yang tertangkap. Pilih **File → Export Objects** dan, pada sub-menu "HTTP", lihat daftar file yang ditransfer melalui HTTP selama penangkapan. Setelah memilih file yang ingin diekstrak, simpan dengan menekan tombol "Save".
 
-### Export Objects
+![export\_objects](.gitbook/assets/export\_objects.png)
 
-The Export Objects feature allows us to extract files from captured network traffic. To access this feature, we can select File" → "Export Objects".
+**Kesimpulan**
 
-In the "HTTP" sub-menu, we can view a list of files that were transferred over HTTP during the capture. After selecting the file(s) that we want to extract, we can save them by clicking on the "Save" button.
+Forensik lalu lintas jaringan adalah bagian penting dari forensik digital, karena memungkinkan kita mengidentifikasi aktivitas jahat, potensi pelanggaran keamanan, dan anomali lain di jaringan. Selain Wireshark, terdapat alat lain seperti Network Miner, Brim, dan Zeek yang bermanfaat untuk menganalisis lalu lintas yang tertangkap, jadi cobalah untuk mengeksplorasi dan bereksperimen.
 
-![export_objects](files/images/export_objects.png)
+**Latihan**
 
-## Conclusion
+Organisasi yang sebelumnya mempekerjakan Anda untuk menyelidiki serangan web menghubungi Anda lagi. Kali ini, mereka telah berhasil menangkap lalu lintas jaringan selama serangan. Mereka menyediakan file lalu lintas yang tertangkap untuk membantu menyusun niat penyerang dan sejauh mana kerusakan terjadi. Tugas Anda adalah menganalisis lalu lintas yang tertangkap dan menjawab pertanyaan berikut:
 
-Network traffic forensics is an essential part of digital forensics, as it enables us to identify malicious activity, potential security breaches and other anomalies on a network. In addition to Wireshark, there are other tools like Network Miner, Brim, and Zeek that are great for analyzing captured traffic, so it's worth checking them out and experimenting with them.
+1. Apa saja protokol yang ada dalam file lalu lintas yang tertangkap?
+2. Tampaknya penyerang mencoba _brute force_ kata sandi FTP pengguna. Apakah ada bukti kata sandi yang benar, dan jika ada, apa itu?
+3. Informasi tambahan apa yang berhasil diekstrak penyerang dari akun FTP pengguna?
+4. Apa tindakan yang dilakukan penyerang dengan informasi dari akun FTP pengguna?
+5. Apa kata sandi akun root?
+6. Dapatkah Anda mengidentifikasi nomor paket di mana penyerang mengeksploitasi kerentanan Eksekusi Kode Jarak Jauh untuk mendapatkan akses ke sistem? Apa payload yang digunakan penyerang?
+7. Setelah mendapatkan akses ke sistem, apa yang dilakukan penyerang?
+8. Penyerang membaca file dari direktori home root. Apa isi file tersebut?
+9. Penyerang mengunduh file di direktori home root. Apa tujuan file tersebut?
+10. Informasi apa yang ditransmisikan melalui saluran komunikasi tersembunyi yang dibuat oleh penyerang?
 
-# Exercises
-
-The organization that previously hired you to investigate the web attack has reached out to you again. This time, they have managed to capture the network traffic during the attack. They have provided you with the captured traffic file to help piece together the attacker's intentions and the extent of the damage. Your job is to analyze the captured traffic and answer the following questions:
-
-1. What are the different protocols present in the captured traffic file?
-2. It appears that the attacker is attempting to brute force the user's FTP password. Can you find any evidence of a correct password, and if so, what is it?
-3. What additional information was the attacker able to extract from the user's FTP account?
-4. What actions did the attacker take with the information obtained from the user's FTP account?
-5. What's the root account password?
-6. Can you identify the packet numbers in which the attacker exploited the Remote Code Execution vulnerability to gain access to the system? What was the exact payload used by the attacker?
-7. After gaining access to the system, what does the attacker seem to be doing?
-8. The attacker read a file from root's home directory. What was in that file?
-9. The attacker downloaded a file inside root's home directory. What's the purpose of that file?
-10. What information was transmitted through the attacker's covertly established channel of communication?
-
-The traffic capture file can be downloaded from [https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab 05/files/challenge.pcapng](https://github.com/vonderchild/digital-forensics-lab/blob/main/Lab%2005/files/challenge.pcapng).
+File lalu lintas dapat diunduh dari [challenge.pcapng](01/files/challenge.pcapng).
