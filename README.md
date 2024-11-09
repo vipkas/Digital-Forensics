@@ -6,7 +6,7 @@ Repositori ini berisi materi kursus untuk lab forensik digital yang ditawarkan d
 
 ## Topik
 
-* [Lab 5 — Forensik Lalu Lintas Jaringan](<Lab 01/>)
-* [Lab 6 — Forensik Citra Disk](<Lab 02/>)
+* [Lab 1 — Network Traffic Forensics](<Lab 01/>)
+* [Lab 2 — Disk Image Forensics](<Lab 02/>)
 
 Repositori ini akan diperbarui secara berkala dengan materi dan latihan baru
