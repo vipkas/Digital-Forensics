@@ -1,8 +1,8 @@
 # Digital-Forensics
 
-## Digital Forensics Lab - CYL2002
+## Lab Forensik Digital - CYL2002
 
-This repository contains the course material for the digital forensics lab offered at FAST National University of Computer and Emerging Sciences, available for public use and learning.
+Repositori ini berisi materi kursus untuk lab forensik digital yang ditawarkan di FAST National University of Computer and Emerging Sciences, tersedia untuk penggunaan publik dan pembelajaran.
 
 ## Course Outline
 
@@ -17,4 +17,4 @@ This repository contains the course material for the digital forensics lab offer
 * [Lab 9 — Container Forensics](Lab%2009/)
 * [Lab 10 — Cracking Passwords](Lab%2010/)
 
-The repository will be regularly updated with new materials and exercises, so please make sure to regularly check for updates. If you have any questions or feedback, feel free to reach out.
+Repositori ini akan diperbarui secara berkala dengan materi dan latihan baru
