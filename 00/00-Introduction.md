@@ -1,81 +1,75 @@
-# Introduction to Digital Forensics
+# Introduction
 
-> The application of computer science and investigative procedures for a legal purpose involving the analysis of digital evidence after proper search authority, chain of custody, validation with mathematics, use of validated tools, repeatability, reporting, and possible expert presentation.  
-> 
+## Introduction to Digital Forensics
+
+> Implementasi _computer science_ dan prosedur investigasi untuk kepentingan hukum, yang mencakup analisis _digital evidence_ setelah memperoleh otorisasi pencarian yang sah, pelaksanaan _chain of custody_, validasi menggunakan metode matematis, pemakaian alat yang sudah tervalidasi, penerapan prosedur yang dapat diulang, pembuatan laporan, dan kemungkinan presentasi oleh ahli.
+>
 > Ken Zatyko
 
-Simply put, digital forensics is a process of using technology to gather evidence, investigate it, and present the findings in a legal case. It can include going through network activity, access logs, search history, and digital storage media like hard disks and mobile devices, as well as the analysis of that data to identify evidence of criminal activity or other wrongdoing.
+Secara sederhana, _digital forensics_ adalah proses menggunakan teknologi untuk mengumpulkan bukti, menyelidikinya, dan mempresentasikan temuan tersebut dalam sebuah kasus hukum. Proses ini dapat mencakup pemeriksaan aktivitas jaringan, _access logs_, riwayat pencarian, dan media penyimpanan digital seperti _hard disks_ dan perangkat seluler, serta analisis data tersebut untuk mengidentifikasi bukti aktivitas kriminal atau pelanggaran lainnya.
 
-# Some use cases
+## **Beberapa kasus penggunaan:**
 
-**Investigating cyber attacks** — In case of a security breach or a cyber attack, digital forensics can be used to determine the scope, as well as the source of the attack. This information can then be used to improve the organization's defenses against future attacks.
+* **Investigasi serangan siber** — Dalam kasus pelanggaran keamanan atau serangan siber, _digital forensics_ dapat digunakan untuk menentukan ruang lingkup serta sumber serangan. Informasi ini kemudian dapat digunakan untuk memperkuat pertahanan organisasi terhadap serangan di masa depan.
+* **Deteksi dan respons ancaman** — Sangat berguna untuk secara proaktif mengidentifikasi dan mengurangi ancaman keamanan.
+* **Pemulihan data** — _Digital forensics_ juga dapat digunakan untuk memulihkan data yang mungkin telah dicuri atau dihapus selama serangan.
+* **Investigasi kriminal** — Bukti yang dikumpulkan dapat digunakan untuk mengidentifikasi tersangka, menetapkan motif, dan menghubungkan tersangka dengan kejahatan tertentu.
 
-**Threat detection and response** — It can be very useful to proactively identify and mitigate security threats.
+Tujuan utamanya adalah mengumpulkan bukti yang dapat digunakan untuk menuntut tersangka di pengadilan.
 
-**Data recovery** — Digital forensics can also be used to recover data that may have been stolen or deleted during an attack.
+## Motivation
 
-**Criminal Investigations** — The evidence collected can be used to identify suspects, establish motive, and link suspects to specific crimes.
-
-The common goal includes collecting evidence that can be used to prosecute suspects in a court of law.
-
-# Motivation
-
-> You are leaving a trail, albeit a digital one; it's a trail nonetheless.  
+> You are leaving a trail, albeit a digital one; it's a trail nonetheless.
 >
->  John Sammons 
+> John Sammons
 
-- **REvil Ransomware Group gets arrested in Russia**
-    
+*   **REvil Ransomware Group gets arrested in Russia**
+
     ![Investigator taking an initial look](files/images/revil.png)
-    
+
     [Link to video](https://www.youtube.com/watch?v=OqEWuFmzhzs)
-    
-- **Author of Raccoon Stealer gets arrested in Netherlands**
-    
+*   **Author of Raccoon Stealer gets arrested in Netherlands**
+
     ![Tweet from @vxunderground](files/images/raccoon.png)
-    
+
     [Link to tweet](https://twitter.com/vxunderground/status/1587304651426332673)
-    
-- **How a Floppy Disk brought the BTK killer down**
-    
+*   **Bagaimana Sebuah Floppy Disk Menjatuhkan BTK Killer**
+
     [Link to article](https://www.refinery29.com/en-us/2019/08/240899/btk-killer-caught-when-how-floppy-disk-dennis-rader)
-    
 
-# Linux command line fundamentals
+## **Dasar-Dasar Command Line Linux**
 
-This section serves as an introduction to the Linux command line tools which are essential for digital forensics.
+Bagian ini berfungsi sebagai pengantar ke alat _command line_ Linux yang penting dalam forensik digital. Ada banyak perintah Linux yang berguna dalam forensik, namun beberapa yang paling mendasar meliputi:
 
-There are many Linux commands that can be useful in forensics, but some of the most essential ones include:
+### **ls** — Digunakan untuk menampilkan daftar file dan direktori dalam sebuah direktori.
 
-## `ls` — used to list the files and directories in a directory
-
-The ls command lets you see a list of all the files and folders in a specific folder
+* Perintah `ls` memungkinkan Anda melihat daftar semua file dan folder di dalam folder tertentu.
 
 ```
 $ ls
 Desktop  Documents  Downloads  Music  Pictures  Public  Videos
 ```
 
-## `cd` — used to change the current working directory
+### **cd** — digunakan untuk mengganti direktori kerja saat ini.
 
-The cd command lets you change the folder that you are currently working in.
+Perintah `cd` memungkinkan Anda berpindah ke folder tertentu.
 
 ```
 $ cd Desktop/
 ```
 
-## `cat` — used to display the contents of a file
+### **cat** — digunakan untuk menampilkan isi dari sebuah file.
 
-The `cat` command (short for "concatenate") lets you print the contents of a file.
+Perintah ini (singkatan dari "concatenate") menampilkan isi file secara langsung di terminal.
 
 ```
 $ cat file.txt 
 Hello World!
 ```
 
-## `strings` — used to display the printable strings in a file
+### **strings** — digunakan untuk menampilkan string yang dapat dibaca di dalam file.
 
-The `strings` command allows you to see human-readable strings of characters inside a file which is helpful in identifying any suspicious strings.
+Perintah ini sangat membantu dalam mengidentifikasi karakter yang dapat dibaca manusia, khususnya dalam file biner.
 
 ```
 $ strings file.txt 
@@ -103,18 +97,18 @@ d> 7
 <SNIP>
 ```
 
-## `grep` — used to search for a specific string or a pattern in a file or multiple files
+### **grep** — digunakan untuk mencari string atau pola tertentu dalam satu atau beberapa file.
 
-The `grep` command is extremely useful for searching a string in large files, such as log files. It can speed up investigations dramatically by letting you search for patterns like URLs, E-mail addresses, MD5 hashes, and more.
+Perintah `grep` sangat berguna untuk mencari string di dalam file berukuran besar, seperti file log. `grep` dapat mempercepat proses investigasi secara signifikan dengan memungkinkan Anda mencari pola seperti URL, alamat email, hash MD5, dan lain-lain.
 
 ```
 $ grep "Hello" file.txt 
 Hello World!
 ```
 
-## `find` — used to search for files and directories
+### **find** — digunakan untuk mencari file dan direktori.
 
-The `find` command can be used to locate different types of files, directories, files with specific permissions, recently modified files.
+Dengan `find`, Anda dapat menemukan berbagai jenis file berdasarkan jenis, izin, atau waktu modifikasi.
 
 ```
 $ find . -type d
@@ -137,11 +131,11 @@ $ find . -type d
 ./Videos
 ```
 
-Notice how the output above returns a few more directories than the `ls` command.
+Perhatikan bagaimana output di atas menampilkan beberapa direktori lebih banyak dibandingkan perintah `ls`.
 
-## `md5sum`, `sha1sum` — used to compute the MD5 and SHA1 hashes of a file
+### **md5sum, sha1sum** — digunakan untuk menghitung hash MD5 dan SHA1 dari sebuah file.
 
-Both of these commands take an input and generate a fixed-length string, also known as a hash or a checksum. If the contents of the file change, even slightly, its hash will be different. This can be useful for detecting if a file has been modified or tampered with.
+Kedua perintah ini menerima input dan menghasilkan string dengan panjang tetap, yang juga dikenal sebagai _hash_ atau _checksum_. Jika isi file berubah, bahkan sedikit saja, _hash_ yang dihasilkan akan berbeda. Hal ini berguna untuk mendeteksi apakah file telah diubah atau dirusak.
 
 ```
 $ md5sum file.txt 
@@ -153,9 +147,9 @@ $ sha1sum file.txt
 a0b65939670bc2c010f4d5d6a0b3e4e4590fb92b  file.txt
 ```
 
-## `netstat` — used to display information about the network connections on a system
+### **netstat** — digunakan untuk menampilkan informasi tentang koneksi jaringan pada sistem.
 
-This tool provides useful information about active connections on a system. The information displayed by this tool includes local and remote addresses and ports of active connections.
+Tools ini memberikan informasi yang berguna tentang koneksi aktif pada sistem. Informasi yang ditampilkan mencakup alamat dan port lokal serta jarak jauh dari koneksi yang sedang aktif.
 
 ```
 $ netstat
@@ -168,9 +162,9 @@ tcp        0      0 192.168.0.106:56910     static-48-7-129-15:http ESTABLISHED
 udp        0      0 192.168.0.106:bootpc    192.168.0.1:bootps      ESTABLISHED
 ```
 
-## `file` — used to determine the type of a file based on its contents
+### **file** — digunakan untuk menentukan jenis file berdasarkan isinya
 
-The `file` command can be used to identify files such as text, image, audio, video, and executable files. It can also be used to identify unknown files that may potentially be malicious.
+Perintah `file` dapat digunakan untuk mengidentifikasi jenis file seperti teks, gambar, audio, video, dan file eksekusi. Perintah ini juga dapat digunakan untuk mengidentifikasi file yang tidak dikenal yang mungkin berpotensi berbahaya.
 
 ```
 $ file /etc/passwd
@@ -182,9 +176,9 @@ $ file image.png
 image.png: PNG image data, 562 x 424, 8-bit/color RGB, non-interlaced
 ```
 
-## `xxd` — used to print hex dump of a given file
+### **xxd** — digunakan untuk mencetak _hex dump_ dari sebuah file tertentu
 
-The `xxd` command is useful to print hex dump of a given file or standard input. It can also convert a hex dump back to its original binary form.
+Perintah `xxd` berguna untuk menampilkan _hex dump_ dari sebuah file atau input standar. Perintah ini juga dapat mengonversi _hex dump_ kembali ke bentuk biner aslinya.
 
 ```
 $ xxd image.jpg 
@@ -196,19 +190,19 @@ $ xxd image.jpg
 00000050: 2224 221e 241c 1e1f 1eff db00 4301 0505  "$".$.......C...
 ```
 
-## `hexedit` — used to edit files in hexadecimal format
+### **hexedit** — digunakan untuk mengedit file dalam format heksadesimal
 
-The `hexedit` tool lets you edit raw bytes of a file in an interactive way. It is often used for repairing corrupted files.
+Alat `hexedit` memungkinkan Anda untuk mengedit byte mentah dari sebuah file secara interaktif. Alat ini sering digunakan untuk memperbaiki file yang rusak.
 
 ```
 $ hexedit image.jpg
 ```
 
-![Output](files/images/hexedit_output.png)
+![Output](files/images/hexedit\_output.png)
 
-## `ps` — used to list the process running on the system
+### **ps** — digunakan untuk menampilkan daftar proses yang berjalan di sistem
 
-The `ps` command lets you see a list of all the processes that are currently running on your computer. The information it provides includes the process ID, user, state, and command that started the process.
+Perintah `ps` memungkinkan Anda melihat daftar semua proses yang sedang berjalan di komputer Anda. Informasi yang ditampilkan mencakup ID proses, pengguna, status, dan perintah yang memulai proses tersebut.
 
 ```
 $ ps                    
@@ -220,33 +214,32 @@ $ ps
   22666 pts/0    00:00:00 ps
 ```
 
-# Exercise
+## **Latihan**
 
-For this section, provide the complete commands for all the exercises where asked for the command, and provide a descriptive answer where asked for an explanation. There may be multiple answers/commands for these exercises, so feel free to submit the answer you feel most comfortable with.
+Untuk bagian ini, berikan perintah lengkap untuk setiap latihan yang meminta perintah, dan berikan jawaban deskriptif untuk bagian yang meminta penjelasan. Mungkin ada beberapa jawaban atau perintah untuk latihan-latihan ini, jadi silakan berikan jawaban yang paling nyaman bagi Anda.
 
-## Questions
+### Pertanyaan
 
-1. If we wanted to list all the `.txt` files in the current directory, what command would we want to use?
-2. What command can we use to read the contents of the file `/etc/passwd`?
-3. If we wanted to search for the string `Error` in all files in the `/var/log` directory, what would our command be?
-4. What would be the commands to calculate MD5 and SHA1 hashes of the file `/etc/passwd`? 
-5. Use the `file` command to determine the type of the file `/usr/bin/cat` and explain the output in 2-3 sentences.
-6. What command can we use to display all printable strings of length ≥ 8 in the file `/bin/bash`?
-7. Given the following output of the `file` command, can you determine what’s wrong with this file?
-    
+1. Jika kita ingin menampilkan semua file .txt di direktori saat ini, perintah apa yang akan kita gunakan?
+2. Perintah apa yang dapat kita gunakan untuk membaca isi file `/etc/passwd`?
+3. Jika kita ingin mencari string "Error" di semua file dalam direktori `/var/log` directory, what would our command be?
+4. Apa perintah yang digunakan untuk menghitung hash MD5 dan SHA1 dari file `/etc/passwd`?
+5. Gunakan perintah `file` untuk menentukan jenis file dari `/usr/bin/cat` dan jelaskan outputnya dalam 2-3 kalimat.
+6. Perintah apa yang dapat kita gunakan untuk menampilkan semua string yang dapat dicetak dengan panjang `/bin/bash`?
+7.  Diberikan output perintah `file` berikut, dapatkah Anda menentukan apa yang salah dengan file ini?
+
     ```
     $ file image.jpg
     image.jpg: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=3ab23bf566f9a955769e5096dd98093eca750431, for GNU/Linux 3.2.0, not stripped
     ```
-    
-8. If we wanted to look for files modified in the last 30 minutes in `/home` directory, what command would we want to use?  
-Hint: Explore how you can use `find` command to achieve this.
-9. What command can we use to display information about all active TCP connections on the system?
-10. Given [this corrupted image file](files/challenge.png), can you find a way to recover and view its contents?  
-Hint 1: A quick google search for “magic bytes” might help.  
-Hint 2: Explore how `hexedit` can help you here.  
-    
-    You may download the image using following command:  
+8. Jika kita ingin mencari file yang dimodifikasi dalam 30 menit terakhir di direktori `/home` perintah apa yang akan kita gunakan?_`Petunjuk:`_` ``Jelajahi cara menggunakan perintah find untuk mencapai tujuan ini`
+9. Perintah apa yang dapat kita gunakan untuk menampilkan informasi tentang semua koneksi TCP aktif di sistem?
+10. Diberikan [file gambar yang rusak](files/challenge.png), dapatkah Anda menemukan cara untuk memulihkan dan melihat isinya?\
+    _`Petunjuk 1:`_` ``Pencarian cepat di Google untuk "magic bytes" mungkin membantu.`\
+    _`Petunjuk 2:`_` ``Jelajahi cara menggunakan hexedit untuk membantu Anda di sini.`
+
+    Anda dapat mengunduh gambar menggunakan perintah berikut:
+
     ```
-    curl https://raw.githubusercontent.com/vonderchild/digital-forensics-lab/main/Lab%2001/files/challenge.png -o challenge.png
+    curl https://raw.githubusercontent.com/vipkas/Digital-Forensics/main/00/files/challenge.png -o challenge.png
     ```
