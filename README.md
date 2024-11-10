@@ -8,5 +8,6 @@ Repositori ini berisi materi kursus untuk lab forensik digital yang ditawarkan d
 
 * [Lab 1 — Network Traffic Forensics](01.md)
 * [Lab 2 — Disk Image Forensics](02.md)
+* [Lab 3 - Malware Analysis](lab-3-malware-analysis.md)
 
 Repositori ini akan diperbarui secara berkala dengan materi dan latihan baru
